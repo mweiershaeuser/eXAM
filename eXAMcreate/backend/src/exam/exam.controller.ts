@@ -1,4 +1,9 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Post } from '@nestjs/common';
 
 @Controller('exam')
-export class ExamController {}
+export class ExamController {
+  @Post()
+  getExam(): string {
+    return 'Abiturklausur';
+  }
+}
