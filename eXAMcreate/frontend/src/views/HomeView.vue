@@ -27,7 +27,7 @@ export default {
         exam: this.exam
       }
 
-      fetch('http://localhost:3000/api/exam', {
+      fetch(`${import.meta.env.VITE_API_URL}/exam`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
