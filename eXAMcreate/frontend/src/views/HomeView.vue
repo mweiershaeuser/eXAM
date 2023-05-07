@@ -69,7 +69,7 @@ export default {
         <input
           v-model="year"
           :disabled="loading"
-          class="input"
+          class="input input-bordered"
           type="number"
           name="year"
           id="year"
@@ -99,13 +99,15 @@ export default {
         <textarea
           v-model="exam"
           :disabled="loading"
-          class="textarea"
+          class="textarea textarea-bordered"
           name="exam"
           id="exam"
         ></textarea>
       </div>
 
-      <button type="submit" :disabled="loading" class="btn btn-primary">Klausur generieren</button>
+      <button type="submit" :disabled="loading" class="btn btn-primary mt-3">
+        Klausur generieren
+      </button>
     </form>
   </main>
 </template>
