@@ -10,8 +10,8 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME_EXAMCREATE_FRONTEND: ${{ github.repository }}create-frontend
-  IMAGE_NAME_EXAMCREATE_BACKEND: ${{ github.repository }}create-backend
+  IMAGE_NAME_EXAMCREATE_FRONTEND: ${{ github.repository }}-frontend
+  IMAGE_NAME_EXAMCREATE_BACKEND: ${{ github.repository }}-backend
 
 jobs:
   examcreate-frontend:
