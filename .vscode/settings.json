@@ -1,5 +1,11 @@
 {
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+
+  "deno.enablePaths": ["./statService"],
+  "deno.lint": true,
+  "deno.unstable": false
 }
