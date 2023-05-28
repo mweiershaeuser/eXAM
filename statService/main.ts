@@ -1,8 +1,8 @@
 import { Application, Router } from "./deps.ts";
 
-const router = new Router();
+const router = new Router({ prefix: "/api/statService" });
 
-router.get("/", async (context) => {
+router.get("/stats", async (context) => {
   const exams = await fetch("http://localhost:8080/exams", {
     headers: {
       "Content-Type": "application/json",
