@@ -6,6 +6,9 @@ COPY . .
 RUN npm run build
 
 FROM nginx:alpine
-COPY nginx.conf /etc/nginx/nginx.conf
+ENV EXAMCREATE_FRONTEND_HOST="localhost"
+ENV EXAMCREATE_EXAMSERVICE_URL="http://localhost:3000"
+ENV EXAMCREATE_STATSERVICE_URL="http://localhost:8000"
+COPY nginx.conf /etc/nginx/templates/nginx.conf.template
 COPY --from=build /eXAMcreate-frontend/dist /usr/share/nginx/html
 EXPOSE 80
