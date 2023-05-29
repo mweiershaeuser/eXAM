@@ -1,0 +1,36 @@
+services:
+  frontend:
+    image: ghcr.io/mweiershaeuser/examcreate-frontend:latest
+    restart: always
+    environment:
+      - EXAMCREATE_FRONTEND_HOST="localhost"
+      - EXAMCREATE_EXAMSERVICE_URL="http://backend:3000"
+      - EXAMCREATE_STATSERVICE_URL="http://statservice:8000"
+    ports:
+      - "80:80"
+    networks:
+      - examcreate-network
+    depends_on:
+      - backend
+      - statservice
+
+  backend:
+    image: ghcr.io/mweiershaeuser/examcreate-backend:latest
+    restart: always
+    networks:
+      - examcreate-network
+
+  statservice:
+    image: ghcr.io/mweiershaeuser/examcreate-statservice:latest
+    restart: always
+    environment:
+      - EXAMMANAGE_API_BASE_URL=http://exammanage-backend:8080
+    networks:
+      - examcreate-network
+      - exammanage-back-tier
+
+networks:
+  examcreate-network:
+    driver: bridge
+  exammanage-back-tier:
+    external: true
