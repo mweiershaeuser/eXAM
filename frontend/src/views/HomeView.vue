@@ -9,7 +9,9 @@ export default {
 
       year: 2023,
       subject: Subject.DEUTSCH,
-      exam: ''
+      exam: '',
+
+      existingExams: 0
     }
   },
   computed: {
@@ -54,13 +56,32 @@ export default {
           console.log(error)
           this.loading = false
         })
+    },
+    getExistingExams() {
+      fetch(`/api/statService/stats?` + new URLSearchParams({ year: `${this.year}` }).toString())
+        .then((response) => response.json())
+        .then((response: any[]) => {
+          this.existingExams = response.filter((exam) => exam.subject === this.subject).length
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
+  },
+  mounted() {
+    this.getExistingExams()
   }
 }
 </script>
 
 <template>
   <main>
+    <div v-if="existingExams > 0" class="alert alert-warning shadow-lg">
+      <div>
+        Im Fach {{ subject }} gibt es bereits {{ existingExams }}
+        {{ existingExams > 1 ? 'Klausuren' : 'Klausur' }} für das Jahr {{ year }}.
+      </div>
+    </div>
     <form @submit.prevent="getExam">
       <div class="form-control">
         <label class="label">
@@ -68,6 +89,7 @@ export default {
         </label>
         <input
           v-model="year"
+          @change="getExistingExams"
           :disabled="loading"
           class="input input-bordered"
           type="number"
@@ -82,6 +104,7 @@ export default {
         </label>
         <select
           v-model="subject"
+          @change="getExistingExams"
           :disabled="loading"
           class="select select-bordered"
           name="subject"

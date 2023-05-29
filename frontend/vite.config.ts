@@ -14,11 +14,11 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/examService': {
-        target: 'http://localhost:3000',
+        target: 'http://127.0.0.1:3000',
         changeOrigin: true
       },
       '/api/statService': {
-        target: 'http://localhost:8000',
+        target: 'http://127.0.0.1:8000',
         changeOrigin: true
       }
     }
