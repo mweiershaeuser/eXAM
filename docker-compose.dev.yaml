@@ -19,6 +19,8 @@ services:
     build:
       context: ./backend
     restart: always
+    ports:
+      - "3000:3000"
     networks:
       - examcreate-network
 
@@ -28,6 +30,8 @@ services:
     restart: always
     environment:
       - EXAMMANAGE_API_BASE_URL=http://exammanage-backend:8080
+    ports:
+      - "8000:8000"
     networks:
       - examcreate-network
       - exammanage-back-tier
