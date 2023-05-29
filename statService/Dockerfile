@@ -12,4 +12,5 @@ RUN deno cache --lock=deno.lock deps.ts
 COPY . .
 RUN deno cache main.ts
 
-CMD ["run", "--lock=deno.lock", "--allow-net", "main.ts"]
+ENV EXAMMANAGE_API_BASE_URL="http://localhost:8080"
+CMD ["run", "--lock=deno.lock", "--allow-net", "--allow-env", "main.ts"]
