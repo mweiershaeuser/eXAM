@@ -3,7 +3,7 @@ import { Application, Router } from "./deps.ts";
 const router = new Router({ prefix: "/api/statService" });
 
 const exammanageApiBaseUrl =
-  Deno.env.get("EXAMMANAGE_API_BASE_URL") ?? "http://localhost:8080";
+  Deno.env.get("EXAMMANAGE_BACKEND_URL") ?? "http://localhost:8080";
 
 router.get("/stats", async (context) => {
   const year = context.request.url.searchParams.get("year");
