@@ -21,6 +21,6 @@ export class ExamController {
       'Access-Control-Expose-Headers': 'Content-Disposition',
     });
 
-    return new StreamableFile(pdf.content);
+    return new StreamableFile(new Uint8Array(pdf));
   }
 }

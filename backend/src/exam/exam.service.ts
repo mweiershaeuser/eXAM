@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import mdToPdf from 'md-to-pdf';
-import { PdfOutput } from 'md-to-pdf/dist/lib/generate-output';
+import * as markdownPdf from 'markdown-pdf';
 
 @Injectable()
 export class ExamService {
-  getExam(md: string): Promise<PdfOutput> {
-    return mdToPdf(
-      { content: md },
-      {
-        launch_options: {
-          executablePath: process.env.CHROMIUM_PATH,
-          args: ['--no-sandbox'],
-        },
-      },
-    );
+  getExam(md: string): Promise<ArrayBuffer> {
+    return new Promise((resolve, reject) => {
+      markdownPdf()
+        .from.string(md)
+        .to.buffer({}, (error, buffer) => {
+          if (error) {
+            reject();
+          }
+          resolve(buffer);
+        });
+    });
   }
 }
