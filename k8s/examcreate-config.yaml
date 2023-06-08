@@ -4,6 +4,6 @@ metadata:
   name: examcreate-config
 data:
   examcreate-frontend-host: localhost
-  examcreate-backend-url: http://examcreate-backend-service
-  examcreate-statservice-url: http://examcreate-statservice-service
+  examcreate-backend-url: http://examcreate-backend-service:3000
+  examcreate-statservice-url: http://examcreate-statservice-service:8000
   exammanage-backend-url: http://localhost:8080
