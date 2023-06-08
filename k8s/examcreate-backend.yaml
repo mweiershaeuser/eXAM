@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: examcreate-backend-deployment
+  labels:
+    app: examcreate-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: examcreate-backend
+  template:
+    metadata:
+      labels:
+        app: examcreate-backend
+    spec:
+      containers:
+        - name: examcreate-backend
+          image: ghcr.io/mweiershaeuser/examcreate-backend:latest
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: examcreate-backend-service
+spec:
+  selector:
+    app: examcreate-backend
+  ports:
+    - port: 3000
+      targetPort: 3000

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: examcreate-statservice-deployment
+  labels:
+    app: examcreate-statservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: examcreate-statservice
+  template:
+    metadata:
+      labels:
+        app: examcreate-statservice
+    spec:
+      containers:
+        - name: examcreate-statservice
+          image: ghcr.io/mweiershaeuser/examcreate-statservice:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: EXAMMANAGE_BACKEND_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: examcreate-config
+                  key: exammanage-backend-url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: examcreate-statservice-service
+spec:
+  selector:
+    app: examcreate-statservice
+  ports:
+    - port: 8000
+      targetPort: 8000

@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: examcreate-frontend-deployment
+  labels:
+    app: examcreate-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: examcreate-frontend
+  template:
+    metadata:
+      labels:
+        app: examcreate-frontend
+    spec:
+      containers:
+        - name: examcreate-frontend
+          image: ghcr.io/mweiershaeuser/examcreate-frontend:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: EXAMCREATE_FRONTEND_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: examcreate-config
+                  key: examcreate-frontend-host
+            - name: EXAMCREATE_BACKEND_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: examcreate-config
+                  key: examcreate-backend-url
+            - name: EXAMCREATE_STATSERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: examcreate-config
+                  key: examcreate-statservice-url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: examcreate-frontend-service
+spec:
+  selector:
+    app: examcreate-frontend
+  ports:
+    - port: 80
+      targetPort: 80

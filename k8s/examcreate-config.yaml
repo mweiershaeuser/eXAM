@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: examcreate-config
+data:
+  examcreate-frontend-host: localhost
+  examcreate-backend-url: http://examcreate-backend-service
+  examcreate-statservice-url: http://examcreate-statservice-service
+  exammanage-backend-url: http://localhost:8080
