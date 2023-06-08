@@ -1,18 +1,10 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Injectable } from '@nestjs/common';
-import * as markdownPdf from 'markdown-pdf';
+import { marked } from 'marked';
 
 @Injectable()
 export class ExamService {
-  getExam(md: string): Promise<ArrayBuffer> {
-    return new Promise((resolve, reject) => {
-      markdownPdf()
-        .from.string(md)
-        .to.buffer({}, (error, buffer) => {
-          if (error) {
-            reject();
-          }
-          resolve(buffer);
-        });
-    });
+  getExam(md: string): string {
+    return marked.parse(md, { mangle: false, headerIds: false });
   }
 }

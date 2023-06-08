@@ -1,6 +1,7 @@
 <script lang="ts">
 import { Subject } from '@/models/subject'
 import type { CreateExamRequest } from './dtos/create-exam-request'
+import jsPDF from 'jspdf'
 
 export default {
   data() {
@@ -36,19 +37,14 @@ export default {
         },
         body: JSON.stringify(createExamRequest)
       })
-        .then(async (response) => {
-          const filename = response.headers.get('Content-Disposition')?.split('"')[1] ?? 'exam.pdf'
-          const file = await response.blob()
-          return { filename, file }
-        })
-        .then(({ filename, file }) => {
-          const link = document.createElement('a')
-
-          link.download = filename
-          link.href = URL.createObjectURL(file)
-
-          link.click()
-          URL.revokeObjectURL(link.href)
+        .then((response) => response.text())
+        .then((response) => {
+          const doc = new jsPDF()
+          doc.html(response, {
+            callback: (doc) => {
+              doc.save(`${this.year}-Abiturklausur-${this.subject}.pdf`)
+            }
+          })
 
           this.loading = false
         })
