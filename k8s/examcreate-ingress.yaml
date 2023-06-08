@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: examcreate-ingress
+  namespace: examcreate
 spec:
   ingressClassName: nginx
   rules:
