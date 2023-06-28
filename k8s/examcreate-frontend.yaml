@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: examcreate-frontend
-          image: ghcr.io/mweiershaeuser/examcreate-frontend:1.1.1
+          image: ghcr.io/mweiershaeuser/examcreate-frontend:1.2.0
           ports:
             - containerPort: 80
           env:

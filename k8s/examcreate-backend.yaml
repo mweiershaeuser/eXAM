@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: examcreate-backend
-          image: ghcr.io/mweiershaeuser/examcreate-backend:1.1.1
+          image: ghcr.io/mweiershaeuser/examcreate-backend:1.2.0
           ports:
             - containerPort: 3000
 ---
