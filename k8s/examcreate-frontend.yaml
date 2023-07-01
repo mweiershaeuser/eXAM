@@ -36,6 +36,11 @@ spec:
                 configMapKeyRef:
                   name: examcreate-config
                   key: examcreate-statservice-url
+          resources:
+            requests:
+              cpu: 6m
+            limits:
+              cpu: 10m
 ---
 apiVersion: v1
 kind: Service
@@ -48,3 +53,23 @@ spec:
   ports:
     - port: 80
       targetPort: 80
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: examcreate-frontend-autoscaler
+  namespace: examcreate
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: examcreate-frontend-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
