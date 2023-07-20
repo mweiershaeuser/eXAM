@@ -4,7 +4,7 @@ metadata:
   name: examcreate-admin-role
   namespace: examcreate
 rules:
-  - apiGroups: [""]
+  - apiGroups: ["*"]
     resources: ["*"]
     verbs: ["*"]
 ---
